@@ -1,0 +1,16 @@
+<h1>{{title}}</h1>
+
+<div id=body>
+    <div id=map>
+    </div>
+</div>
+
+<div id="data">
+    {{#if err}}
+        <div id=error>
+            <p>error: {{err}}</p>
+        </div>
+    {{/if}}
+    {{ body }}
+</div>
+

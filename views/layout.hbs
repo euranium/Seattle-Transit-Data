@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    {{{body}}}
+  </body>
+  <div id=footer>
+      <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <script async defer src="//maps.googleapis.com/maps/api/js?key={{token}}&callback=initMap"></script>
+      <!--<script src="//maps.googleapis.com/maps/api/js?key={{token}}&libraries=visualization&sensor=true_or_false"> </script>-->
+      <script src='/javascripts/data.js'></script>
+      <script src='/javascripts/maps.js'></script>
+  </div>
+</html>
