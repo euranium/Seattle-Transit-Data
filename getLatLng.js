@@ -126,8 +126,7 @@ function cb(err, response, body) {
 }
 
 function formatAddr(addr) {
-    // for some reason, sometimes a null is someimes passed in
-    // causing a program crash
+    // make sure input is good
     if (typeof(addr) !== 'string') {
         console.log('wrong type', typeof(addr));
         return "";
@@ -164,7 +163,9 @@ function saveCache() {
 console.log('starting');
 request(options, callback);
 
-process.stdin.resume();//so the program will not close instantly
+//so the program will not close instantly
+process.stdin.resume();
+
 function exitHandler(options, err) {
     console.log('exiting cleanup');
     if (options.cleanup || options.exit) {
