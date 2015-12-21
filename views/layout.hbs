@@ -9,24 +9,26 @@
   </body>
   <div id=footer>
       <script>
-{{#if map}}
-    var dict = {{{map}}}
+{{#if dict}}
+    var dict = {{{dict}}}
 {{/if}}
 
-{{#if data}}
-    var data = {{{data}}};
+{{#if heat}}
+    var heat = {{{heat}}};
 {{/if}}
 
-{{#if err}}
-    var err = {{{err}}};
-{{else}}
-    var err = false;
+{{#if bikes}}
+    var bikes = {{{bikes}}}
 {{/if}}
+
+var Bikerr = {{{Bikerr}}};
+var Heaterr = {{{Heaterr}}};
       </script>
-      <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-      <!--<script async defer src="//maps.googleapis.com/maps/api/js?key={{token}}&callback=initMap"></script>-->
-      <script async defer src="//maps.googleapis.com/maps/api/js?key={{token}}&libraries=visualization&callback=initMap"> </script>
-      <script src='/javascripts/data.js'></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{token}}&libraries=visualization&callback=initMap"> </script>
+      <script async defer src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
       <script src='/javascripts/maps.js'></script>
+      <script src='/javascripts/heatMap.js'></script>
+      <script src='/javascripts/locations.js'></script>
+      <script src='/javascripts/distanceTo.js'></script>
   </div>
 </html>

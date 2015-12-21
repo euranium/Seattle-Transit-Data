@@ -22,6 +22,46 @@ var options = {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     // get traffic flow stats
+
+    function callback(err, response, body) {
+
+        if (response) {
+            var code = response.statusCode || 1;
+        }
+        var Heaterr = false;
+        // error handling
+        if (err || code < 200 || code > 299) {
+            console.log(err, response);
+            Heaterr = err || body;
+            body = '';
+        }
+        console.log(response.statusCode);
+        options.url = util.format(url, 'vncn-umqp.json');
+        var heat = body;
+        request(options, cb);
+
+        function cb(err, response, b) {
+            if (response) {
+                var code = response.statusCode || 1;
+            }
+            // error handling
+            if (err || code < 200 || code > 299) {
+                console.log(b, err);
+                res.render('map', {"token": tokens.google, title: 'Transportation', bikes: '', heat: heat, Heaterr: Heaterr,
+                    Bikerr: err || b, code: response, dict: dict});
+                return;
+            }
+            res.render('map', {token: tokens.google, title: 'Transportation', bikes: b, heat: heat, Heaterr: Heaterr,
+                Bikerr: false, code: response, dict: dict});
+        }
+    }
+
+    options.url = util.format(url, 'pht6-7efs.json');
+    request(options, callback);
+});
+
+router.get('/traffic', function(req, res, next) {
+    // get traffic flow stats
     options.url = util.format(url, 'pht6-7efs.json');
     function callback(err, response, body) {
         var code = response.statusCode;
@@ -35,25 +75,6 @@ router.get('/', function(req, res, next) {
     }
 
     request(options, callback);
-    //res.render('index', { title: 'Express' });
-});
-
-router.get('/traffic', function(req, res, next) {
-    options.url = util.format(url, '7svg-ds5z.json');
-
-    function callback(err, response, body) {
-        var code = response.statusCode;
-        if (err || code < 200 || code > 299) {
-            console.log(err, response);
-            res.render('index', {"token": tokens.google, title: 'Traffic Density', data: body, 'err': err, 'code': response, map: map});
-            return;
-        }
-        console.log(response.statusCode);
-        body = JSON.parse(body);
-        res.render('index', {"token": tokens.google, title: 'Traffic Density', data: body, code: response, map: map});
-    }
-
-    request(options, callback);
 });
 
 router.get('/bike-racks', function(req, res, next) {
@@ -63,13 +84,11 @@ router.get('/bike-racks', function(req, res, next) {
         var code = response.statusCode;
         if (err || code < 200 || code > 299) {
             console.log(err, response);
-            body = JSON.parse(body);
-            res.render('index', {"token": tokens.google, title: 'Bike Rack Locations', data: body, 'err': err, 'code': response, map: map});
+            res.render('locations', {"token": tokens.google, title: 'Bike Rack Locations', data: body, 'err': err, 'code': response, map: dict});
             return;
         }
         console.log(response.statusCode);
-        body = JSON.parse(body);
-        res.render('index', {"token": tokens.google, title: 'Bike Rack Locations', data: body, code: response, map: map});
+        res.render('locations', {"token": tokens.google, title: 'Bike Rack Locations', data: body, code: response, map: dict});
     }
 
     request(options, callback);

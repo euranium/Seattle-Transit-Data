@@ -1,12 +1,16 @@
-<div id=body>
-    <div id="map"></div>
-</div>
+<div id="map"></div>
 
-<div id="data">
-    {{#if err}}
-        <div id=error>
-            <p>error: {{err}}</p>
-        </div>
-    {{/if}}
-    {{data}}
+<div id=wrapper>
+    </br></br>
+    <div id=options>
+        <h2 id='bikeErr'></h3>
+        <h2 id='heatErr'></h3>
+        <h3 id='error'></h3>
+        <label><input type='checkbox' class='in' id=heatmap  onchange='toggleHeat(this)'>Heatmap</label>
+        <label><input type='checkbox' class='in' id=traffic value=traffic onchange='toggleTraffic(this)'>Traffic</label>
+        </br></br>
+        <label><input type='number' class='in' id=bikes value=0 onchange='toggleBikes(this)'> Bike Racks</label>
+        </br></br>
+        <label><input type='address' class='in' id=address value='Nordsom downtown Seattle' onchange='checkAddress(this)'> Nearest Bike Rack</label>
+    </div>
 </div>
