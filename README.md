@@ -32,4 +32,5 @@ If there is a problem with any of the data sources from Seattle's API, the UI wi
 any requests.
 
 Any run time errors with requesting data or parsing will generate an error message for the user. The user should wait
-for several moments incase of going over a query limit.
+for several moments incase of going over a query limit. Other wise, try refreshing the page. Because of the dependencies
+on outside resources, waiting till a dependency is back on line may be the only option.
