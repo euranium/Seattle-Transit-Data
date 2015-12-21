@@ -115,12 +115,6 @@ function formatAddr(addr) {
             addr = addr.replace(removeStr[i], '');
         }
     }
-    // substite abrieviated strings
-    for (var i in subStr) {
-        while(addr.indexOf(i) !== -1) {
-            addr = addr.replace(i, subStr[i]);
-        }
-    }
     addr = addr.toLowerCase();
     return addr.trim();
 }
