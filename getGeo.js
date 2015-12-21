@@ -55,7 +55,7 @@ function parseData() {
     var str = "";
     var memberOf = true;
     // loop through all retrieved data and find a valid street that is not stored
-    while (memberOf && qu < data.length && qu < 100) {
+    while (memberOf && qu < data.length) {
         while (qu < data.length && data[qu].year === '2009.0' || !data[qu].stname) {
             qu++;
         }
@@ -67,7 +67,7 @@ function parseData() {
         }
     }
     // send out a request to google with a valid url
-    if (qu < data.length && qu < 100) {
+    if (qu < data.length) {
         str += ', Seattle, WA';
         str = str.split(' ').join('+');
         str = util.format(google, str);
@@ -102,27 +102,25 @@ function cb(err, response, body) {
     query = query.replace(/\+/g, ' ');
     query = query.replace(', seattle, wa', '');
     var resp = JSON.parse(body);
-    if (resp && resp.status !== "OK") {
+    if (resp.status !== "OK") {
         console.log('\n\nnot ok: ' + resp.status + '\n\n');
         process.exit(1);
         return;
     }
 
     // parse a good response for lat, lng
-    if (resp.results && resp.results[0]) {
-        resp = resp.results[0];
-        console.log('adding: ' + query);
-        var lng = resp.geometry.location.lng;
-        var lat = resp.geometry.location.lat;
-        dict[query] = {
-            lat: lat,
-            lng: lng
-        };
-    }
+    resp = resp.results[0];
+    console.log('adding: ' + query);
+    var lng = resp.geometry.location.lng;
+    var lat = resp.geometry.location.lat;
+    dict[query] = {
+        lat: lat,
+        lng: lng
+    };
     if (!todo && qu >= data.length) {
         process.exit(1);
     } else if (!todo) {
-        //saveCache();
+        saveCache();
     }
     // if no more queued up requests
 }
@@ -150,7 +148,6 @@ function formatAddr(addr) {
 function saveCache() {
     console.log('saving');
     dict.removeStr = removeStr;
-    dict.subStr = subStr;
     var str = JSON.stringify(dict);
     fs.writeFileSync('addressToGeo.json', str, 'utf-8');
 }
@@ -165,7 +162,7 @@ process.stdin.resume();
 function exitHandler(options, err) {
     console.log('exiting cleanup');
     if (options.cleanup || options.exit) {
-        //saveCache();
+        saveCache();
     } else {
         process.exit(1);
     }
