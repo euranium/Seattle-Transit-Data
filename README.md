@@ -3,8 +3,14 @@ Visualization of some traffic data in the city of Seattle
 
 Data comes from [Seattle City API](https://data.seattle.gov/). I used transit data for this project. There are two
 different types of data polled.
+
 1. Traffic density
+
 2. Bike Racks
+
+Maps are generated through [Google maps API](https://developers.google.com/maps/). Google maps: distance matrix,
+geocoding, markers, and visualization heatmap layers are used. Running those APIs requires a key obtained through
+Google.
 
 ## Traffic Density
 Traffic density comes from a polling of traffic flow counts. The provided data consists of address and an average anual
