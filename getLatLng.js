@@ -19,9 +19,6 @@ var tokens = require('./token.json');
     url = 'https://data.seattle.gov/resource/pht6-7efs.json';
 
 // some string manipulation needs to be done to translate between address
-// there's a lot of addresses which need to be remapped, mostly ramps and some street names
-// some edge cases with S needing to be remapped to south only some times
-// solving this with a natural langague solution would take to long, so here's a quick hack
 var removeStr = [" ON RAMP", " NB", " SB", " &amp;", " &", " VI", " EB", " WB", "W/O 15TH ", "ON RP", "OFF RP", "OFF RAMP", 'REV RAMP'],
     data = {},
     streets = [],
